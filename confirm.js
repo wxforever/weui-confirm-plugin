@@ -13,10 +13,10 @@
 	         if(!document.querySelector('#weuidialog')){
 	         			var confirmdom='<div class="weui_dialog_confirm" style="display:none;" id="weuidialog">'+
 	    						'<div class="weui_mask" style="z-index:999999;"></div>'+
-	    						'<div class="weui_dialog" style="z-index:999999;">'+
+	    						'<div class="weui_dialog" id="weuibase" style="z-index:999999;">'+
 	        						'<div class="weui_dialog_hd"><strong class="weui_dialog_title" id="weuititle">'+obj.title+'</strong></div>'+
 	        						'<div class="weui_dialog_bd" id="weuicontent">'+obj.content+'</div>'+
-	        						'<div class="weui_dialog_ft">'+
+	        						'<div class="weui_dialog_ft" id="weuibutton">'+
 	            						'<a href="javascript:;" class="weui_btn_dialog default" id="weuicancel">'+obj.cancel+'</a>'+
 	            						'<a href="javascript:;" class="weui_btn_dialog primary" id="weuiconfirm">'+obj.confirm+'</a>'+
 	        						'</div></div></div>';
@@ -46,7 +46,8 @@
 				content:'',
 				cancel:'取消',
 				confirm:'确定',
-				ck:null
+				ck:null,
+				hide:[],
 				};
 
 			for (var i in obj) {
@@ -65,6 +66,29 @@
 				document.querySelector('#weuiconfirm').ontouchstart=function(){
 					_this.hide();
 				}
+			}
+			//隐藏不需要的按钮
+			/*document.querySelector('#weuibase').children.forEach(function(element){
+				element.style.display='block';
+
+			});*/
+	/*document.querySelector('#weuibutton').children.forEach(function(element){
+				element.style.display='block';
+
+			});*/
+			Array.prototype.forEach.call(document.querySelector('#weuibase').children,function(element){
+				element.style.display='block';
+
+			});
+			Array.prototype.forEach.call(document.querySelector('#weuibutton').children,function(element){
+				element.style.display='block';
+
+			});
+			
+			if(obj.hide.length>0){
+				obj.hide.forEach(function(hideElement){
+					document.querySelector(hideElement).style.display='none';
+				})
 			}
 
 		},
