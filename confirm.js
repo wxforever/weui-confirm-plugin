@@ -12,9 +12,9 @@
 			_this=this;
 	         if(!document.querySelector('#weuidialog')){
 	         			var confirmdom='<div class="weui_dialog_confirm" style="display:none;" id="weuidialog">'+
-	    						'<div class="weui_mask" style="z-index:999999;"></div>'+
+	    						'<div class="weui_mask" id="weuimask"style="z-index:999999;"></div>'+
 	    						'<div class="weui_dialog" id="weuibase" style="z-index:999999;">'+
-	        						'<div class="weui_dialog_hd"><strong class="weui_dialog_title" id="weuititle">'+obj.title+'</strong></div>'+
+	        						'<div class="weui_dialog_hd" id="weuibasehd"><strong class="weui_dialog_title" id="weuititle">'+obj.title+'</strong></div>'+
 	        						'<div class="weui_dialog_bd" id="weuicontent">'+obj.content+'</div>'+
 	        						'<div class="weui_dialog_ft" id="weuibutton">'+
 	            						'<a href="javascript:;" class="weui_btn_dialog default" id="weuicancel">'+obj.cancel+'</a>'+
@@ -24,6 +24,10 @@
 	        odiv.innerHTML=confirmdom;
 			document.body.insertBefore(odiv, document.body.firstChild);
 			document.querySelector('#weuicancel').addEventListener('touchstart',function(){
+				_this.hide();
+				
+			},false);
+			document.querySelector('#weuimask').addEventListener('touchstart',function(){
 				_this.hide();
 				
 			},false);
@@ -85,8 +89,9 @@
 
 			});
 			
-			if(obj.hide.length>0){
-				obj.hide.forEach(function(hideElement){
+			if(_default.hide.length>0){
+				
+				_default.hide.forEach(function(hideElement){
 					document.querySelector(hideElement).style.display='none';
 				})
 			}
